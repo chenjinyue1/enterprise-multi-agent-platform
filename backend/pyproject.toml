@@ -1,0 +1,126 @@
+[project]
+name = "enterprise-multi-agent-platform"
+version = "0.1.0"
+description = "Enterprise Multi-Agent Data Analysis Platform"
+requires-python = ">=3.11"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+
+# ============================================================
+# 核心依赖说明：
+# 
+# 【Web框架】
+# fastapi      - 异步Web框架，Agent调用是IO密集型，异步能支撑更高并发
+# uvicorn      - ASGI服务器，支持WebSocket（实时推送Agent进度）
+# python-jose  - JWT令牌生成与验证
+# passlib      - 密码哈希（bcrypt）
+#
+# 【AI核心】
+# langgraph    - Agent编排框架，v1.0已GA，生产级可用
+# langchain    - LLM应用框架，工具封装、链式调用
+# langchain-openai - OpenAI模型集成
+# langchain-community - 社区工具（ChromaDB等）
+#
+# 【MCP协议】
+# mcp          - Model Context Protocol，AI工具标准化协议
+#
+# 【RAG】
+# chromadb     - 向量数据库，本地运行，开发方便
+# langchain-chroma - LangChain的ChromaDB集成
+#
+# 【数据与可视化】
+# pandas       - 数据处理，Data Agent查询结果处理
+# numpy        - 数值计算
+# matplotlib   - 图表绘制
+# seaborn      - 统计图表美化
+# jinja2       - 报告模板引擎
+#
+# 【数据库】
+# sqlalchemy   - ORM，统一数据库操作
+# aiomysql     - 异步MySQL驱动（配合FastAPI异步）
+# redis        - 缓存、状态存储、Pub/Sub
+# aioredis     - 异步Redis客户端
+#
+# 【配置与工具】
+# pydantic     - 数据校验，FastAPI和LangGraph都依赖
+# pydantic-settings - 从环境变量加载配置
+# python-dotenv - 读取.env文件
+# httpx        - 异步HTTP客户端（调用外部API）
+#
+# 【评估】
+# deepeval     - LLM评估框架
+# ============================================================
+
+dependencies = [
+    # Web框架
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "websockets>=13.0",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "python-multipart>=0.0.12",
+
+    # AI核心
+    "langgraph>=0.2.0",
+    "langchain>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "langchain-community>=0.3.0",
+
+    # MCP协议
+    "mcp>=1.0.0",
+
+    # RAG
+    "chromadb>=0.5.0",
+    "langchain-chroma>=0.1.0",
+    "sentence-transformers>=3.0.0",
+
+    # 数据与可视化
+    "pandas>=2.2.0",
+    "numpy>=1.26.0",
+    "matplotlib>=3.9.0",
+    "seaborn>=0.13.0",
+    "jinja2>=3.1.0",
+
+    # 数据库
+    "sqlalchemy>=2.0.0",
+    "aiomysql>=0.2.0",
+    "redis>=5.0.0",
+    "aioredis>=2.0.0",
+    "alembic>=1.13.0",
+
+    # 配置与工具
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.5.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.27.0",
+    "tenacity>=9.0.0",
+
+    # 评估
+    "deepeval>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=5.0.0",
+    "black>=24.0.0",
+    "ruff>=0.6.0",
+    "mypy>=1.11.0",
+    "pre-commit>=3.8.0",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true

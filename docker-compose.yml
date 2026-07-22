@@ -1,0 +1,74 @@
+# ============================================================
+# Docker Compose 配置
+# 
+# 作用：一键启动项目所需的所有基础设施服务
+# 命令：docker-compose up -d
+# 
+# 包含服务：
+# - MySQL: 关系数据库，存储用户、报告、执行记录
+# - Redis: 缓存 + 状态存储 + Pub/Sub实时推送
+# - ChromaDB: 向量数据库，存储报告模板向量
+# ============================================================
+
+version: "3.8"
+services:
+  # --- MySQL 服务 ---
+  mysql:
+    image: mysql:8.0
+    container_name: ma-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: multi_agent_db
+      MYSQL_USER: agent_user
+      MYSQL_PASSWORD: agent_pass
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- Redis 服务 ---
+  redis:
+    image: redis:7-alpine
+    container_name: ma-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- ChromaDB 服务 ---
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: ma-chromadb
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+      - ANONYMIZED_TELEMETRY=FALSE
+
+volumes:
+  mysql_data:
+  redis_data:
+  chroma_data:
