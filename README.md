@@ -38,7 +38,7 @@
 
 ```bash
 # 1. 克隆项目
-git clone <repo-url>
+git clone https://github.com/chenjinyue1/enterprise-multi-agent-platform.git
 cd enterprise-multi-agent-platform
 
 # 2. 启动基础设施（MySQL + Redis + ChromaDB）

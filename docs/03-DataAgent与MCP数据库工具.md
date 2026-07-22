@@ -1,5 +1,5 @@
 
-doc03_content = '''# 板块三：Data Agent + MCP 数据库工具
+# 板块三：Data Agent + MCP 数据库工具
 
 > **文档编号**: 03  
 > **前置板块**: 02-核心状态机State设计  
@@ -605,9 +605,5 @@ asyncio.run(test())
 
 > **文档结束**  
 > 如有疑问，随时提问。确认理解后，我们继续 **板块四：Analysis Agent + Python 计算工具** 🚀
-'''
-
-with open(f"{ROOT}/docs/03-DataAgent与MCP数据库工具.md", "w", encoding="utf-8") as f:
-    f.write(doc03_content)
 
 print("✅ docs/03-DataAgent与MCP数据库工具.md 创建完成")
