@@ -91,7 +91,9 @@ def build_graph() -> StateGraph:
 # 添加 Viz Agent 节点（板块五新增）
     from app.agents.viz_agent import viz_agent_node
     workflow.add_node("viz_agent", viz_agent_node)
-    # workflow.add_node("report_agent", report_agent_node)
+# 添加 Review Agent 节点（板块六新增） # 职责：整合数据+洞察+图表，调用RAG检索模板，生成专业报告
+    from app.agents.report_agent import report_agent_node
+    workflow.add_node("report_agent", report_agent_node)
     # workflow.add_node("review_agent", review_agent_node)
     
     # 1.3 添加边（路由）
@@ -116,6 +118,9 @@ def build_graph() -> StateGraph:
 
     # 添加 Viz Agent 回到 Supervisor 的边（板块五新增）
     workflow.add_edge("viz_agent", "supervisor")
+
+    # 添加 Report Agent 回到 Supervisor 的边（板块六新增）
+    workflow.add_edge("report_agent", "supervisor")
     
     # TODO: 后续板块添加更多 Agent 节点后，添加对应边
     # for agent in ["data_agent", "analysis_agent", "viz_agent", "report_agent", "review_agent"]:
