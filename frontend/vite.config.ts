@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5173,
+    port: 3000,
     proxy: {
       // 开发时代理API请求到后端
       '/api': {
@@ -22,6 +22,18 @@ export default defineConfig({
       '/ws': {
         target: 'ws://localhost:8000',
         ws: true,
+      },
+    },
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          charts: ['echarts'],
+        },
       },
     },
   },
