@@ -88,7 +88,9 @@ def build_graph() -> StateGraph:
 # 添加 Analysis Agent 节点（板块四新增）
     from app.agents.analysis_agent import analysis_agent_node
     workflow.add_node("analysis_agent", analysis_agent_node)
-    # workflow.add_node("viz_agent", viz_agent_node)
+# 添加 Viz Agent 节点（板块五新增）
+    from app.agents.viz_agent import viz_agent_node
+    workflow.add_node("viz_agent", viz_agent_node)
     # workflow.add_node("report_agent", report_agent_node)
     # workflow.add_node("review_agent", review_agent_node)
     
@@ -111,6 +113,9 @@ def build_graph() -> StateGraph:
 
     # 添加 Analysis Agent 回到 Supervisor 的边（板块四新增）
     workflow.add_edge("analysis_agent", "supervisor")
+
+    # 添加 Viz Agent 回到 Supervisor 的边（板块五新增）
+    workflow.add_edge("viz_agent", "supervisor")
     
     # TODO: 后续板块添加更多 Agent 节点后，添加对应边
     # for agent in ["data_agent", "analysis_agent", "viz_agent", "report_agent", "review_agent"]:
