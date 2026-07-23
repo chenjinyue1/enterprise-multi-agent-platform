@@ -32,6 +32,7 @@
 | 01 | [项目架构设计与环境搭建](docs/01-项目架构设计与环境搭建.md) | 架构选型、目录结构、环境配置 |
 | 02 | [核心状态机State设计](docs/02-核心状态机State设计.md) | State定义、Annotated策略、RouteDecision、Supervisor |
 | 03 | [DataAgent与MCP数据库工具](docs/03-DataAgent与MCP数据库工具.md) | Data Agent、MCP Server/Client、SQL Tool、ReAct Agent |
+| 04 | [AnalysisAgent与Python计算工具](docs/04-AnalysisAgent与Python计算工具.md) | Analysis Agent、Python MCP Server、安全沙箱、ReAct Agent |
 
 
 ## 🚀 快速开始
